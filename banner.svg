@@ -55,7 +55,7 @@
   <!-- identity block -->
   <text x="80" y="92" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="15" letter-spacing="4" fill="#F2C744" opacity="0.9">root@chihata</text>
 
-  <text x="78" y="158" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="58" font-weight="800" letter-spacing="5" fill="#EAF6F6">KYLE<tspan fill="#2DE2C5">.EXE</tspan></text>
+  <text x="78" y="158" font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif" font-size="58" font-weight="800" letter-spacing="5" fill="#EAF6F6">TAWANDA<tspan fill="#2DE2C5">CHIHATA</tspan></text>
 
   <text x="80" y="200" font-family="'JetBrains Mono','Fira Code','Courier New',monospace" font-size="19" fill="#C9D6DF">
     <tspan>IT Support Specialist</tspan>
