@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Social Engineering Toolkit — Awareness & Training</title>
+<meta name="description" content="A professional awareness and training tool covering common social engineering attack scenarios including phishing, pretexting, baiting, tailgating, and awareness best practices.">
+<style>
+  /* ── Reset & Base ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --cyan: #2DE2C5;
+    --gold: #F2C744;
+    --bg-dark: #0a0e14;
+    --bg-card: #111820;
+    --bg-card-hover: #182230;
+    --bg-code: #0d131c;
+    --text: #C9D6DF;
+    --text-dim: #8899a6;
+    --text-bright: #e8edf0;
+    --border: #1e2a38;
+    --border-cyan-dim: rgba(45, 226, 197, 0.15);
+    --danger: #ff4d6d;
+    --warn: #f2c744;
+    --safe: #2DE2C5;
+    --radius: 10px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.5);
+    --font-sans: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --font-mono: 'Cascadia Code', 'Fira Code', 'Source Code Pro', monospace;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg-dark);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+  a { color: var(--cyan); text-decoration: none; transition: color .2s; }
+  a:hover { color: var(--gold); }
+  img, svg { max-width: 100%; display: block; }
+
+  /* ── Scrollbar ── */
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: var(--bg-dark); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--cyan); }
+
+  /* ── Print ── */
+  @media print {
+    body { background: #fff; color: #222; }
+    .header, .nav-bar, .section-nav, .print-hide { display: none !important; }
+    .card { break-inside: avoid; border: 1px solid #ccc; background: #f9f9f9; box-shadow: none; }
+    .card__icon { background: #e0e0e0 !important; }
+    .badge { border: 1px solid #999; }
+    .tag { border: 1px solid #aaa; }
+    .tip { border-left: 4px solid #333; background: #f0f0f0; }
+    .badge--phishing { border-color: #c00; color: #c00; }
+    .badge--pretexting { border-color: #c60; color: #c60; }
+    .badge--baiting { border-color: #808; color: #808; }
+    .badge--tailgating { border-color: #068; color: #068; }
+    .badge--training { border-color: #080; color: #080; }
+    .footer { border-top: 1px solid #ccc; color: #666; }
+    .toc { border: 1px solid #ccc; background: #f5f5f5; }
+    .toc a { color: #222; }
+    .print-header { display: block !important; text-align: center; margin-bottom: 1.5rem; }
+    .print-header h1 { font-size: 1.8rem; color: #000; }
+    .print-header p { color: #555; }
+    .header-accent { background: #333 !important; }
+  }
+  .print-header { display: none; }
+
+  /* ── Layout ── */
+  .wrapper { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+
+  /* ── Header ── */
+  .header {
+    background: linear-gradient(135deg, var(--bg-dark) 0%, #0d1a24 100%);
+    border-bottom: 2px solid var(--border);
+    padding: 2rem 0 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--cyan), var(--gold), var(--cyan));
+    background-size: 200% 100%;
+    animation: shimmer 4s ease-in-out infinite;
+  }
+  @keyframes shimmer {
+    0%, 100% { background-position: 0% 0%; }
+    50% { background-position: 100% 0%; }
+  }
+  .header__inner {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+  .header__icon {
+    width: 56px; height: 56px;
+    background: linear-gradient(135deg, var(--cyan), #1a9e8a);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 1.6rem;
+    box-shadow: 0 0 20px rgba(45,226,197,0.2);
+  }
+  .header__titles { flex: 1; min-width: 200px; }
+  .header__titles h1 {
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: var(--text-bright);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+  .header__titles h1 span { color: var(--cyan); }
+  .header__titles p {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    margin-top: 0.2rem;
+  }
+  .header__badge {
+    background: rgba(45,226,197,0.1);
+    border: 1px solid var(--border-cyan-dim);
+    border-radius: 20px;
+    padding: 0.3rem 1rem;
+    font-size: 0.75rem;
+    color: var(--cyan);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* ── Nav ── */
+  .nav-bar {
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .nav-bar__inner {
+    display: flex;
+    gap: 0.25rem;
+    overflow-x: auto;
+    padding: 0.6rem 0;
+    scrollbar-width: none;
+  }
+  .nav-bar__inner::-webkit-scrollbar { display: none; }
+  .nav-link {
+    flex-shrink: 0;
+    padding: 0.45rem 1rem;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text-dim);
+    transition: all .2s;
+    white-space: nowrap;
+    border: 1px solid transparent;
+  }
+  .nav-link:hover { color: var(--text-bright); background: var(--bg-card-hover); }
+  .nav-link.active {
+    color: var(--cyan);
+    background: rgba(45,226,197,0.08);
+    border-color: var(--border-cyan-dim);
+  }
+
+  /* ── Hero / Intro ── */
+  .intro {
+    padding: 2.5rem 0 1.5rem;
+    text-align: center;
+  }
+  .intro h2 {
+    font-size: 1.3rem;
+    color: var(--text-bright);
+    margin-bottom: 0.6rem;
+  }
+  .intro p {
+    max-width: 720px;
+    margin: 0 auto;
+    color: var(--text-dim);
+    font-size: 0.95rem;
+  }
+
+  /* ── TOC ── */
+  .toc {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem 2rem;
+    margin-bottom: 2.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.5rem 1.5rem;
+  }
+  .toc__title {
+    grid-column: 1 / -1;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-dim);
+    margin-bottom: 0.25rem;
+  }
+  .toc a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.5rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    color: var(--text);
+    transition: all .2s;
+  }
+  .toc a:hover { background: var(--bg-card-hover); color: var(--cyan); }
+  .toc a .toc-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ── Section ── */
+  .section {
+    margin-bottom: 3rem;
+    scroll-margin-top: 4.5rem;
+  }
+  .section__header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .section__header h2 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text-bright);
+  }
+  .section__header .count {
+    margin-left: auto;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    background: var(--bg-card);
+    padding: 0.2rem 0.7rem;
+    border-radius: 12px;
+  }
+
+  /* ── Cards ── */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.25rem;
+  }
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    transition: all .3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 3px;
+    opacity: 0;
+    transition: opacity .3s;
+  }
+  .card:hover {
+    border-color: rgba(45,226,197,0.2);
+    background: var(--bg-card-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+  }
+  .card:hover::before { opacity: 1; }
+  .card__icon {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+  }
+  .card__title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-bright);
+    margin-bottom: 0.15rem;
+  }
+  .card__subtitle {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    margin-bottom: 0.6rem;
+  }
+  .card__desc {
+    font-size: 0.88rem;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+  }
+  .card__desc strong { color: var(--text-bright); }
+  .card__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: auto;
+  }
+
+  /* ── Badges & Tags ── */
+  .badge {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+  }
+  .badge--phishing { background: rgba(255,77,109,0.12); color: var(--danger); }
+  .badge--pretexting { background: rgba(242,199,68,0.12); color: var(--gold); }
+  .badge--baiting { background: rgba(180,100,255,0.12); color: #b464ff; }
+  .badge--tailgating { background: rgba(45,226,197,0.12); color: var(--cyan); }
+  .badge--training { background: rgba(80,200,120,0.12); color: #50c878; }
+
+  .tag {
+    display: inline-block;
+    font-size: 0.68rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    background: rgba(255,255,255,0.04);
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+  }
+
+  /* ── Per-category card accents ── */
+  .card--phishing::before { background: linear-gradient(90deg, var(--danger), transparent); }
+  .card--pretexting::before { background: linear-gradient(90deg, var(--gold), transparent); }
+  .card--baiting::before { background: linear-gradient(90deg, #b464ff, transparent); }
+  .card--tailgating::before { background: linear-gradient(90deg, var(--cyan), transparent); }
+  .card--training::before { background: linear-gradient(90deg, #50c878, transparent); }
+
+  .card--phishing .card__icon { background: rgba(255,77,109,0.12); color: var(--danger); }
+  .card--pretexting .card__icon { background: rgba(242,199,68,0.12); color: var(--gold); }
+  .card--baiting .card__icon { background: rgba(180,100,255,0.12); color: #b464ff; }
+  .card--tailgating .card__icon { background: rgba(45,226,197,0.12); color: var(--cyan); }
+  .card--training .card__icon { background: rgba(80,200,120,0.12); color: #50c878; }
+
+  /* ── Scenario Detail Box ── */
+  .scenario-detail {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(4px);
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+  .scenario-detail.open { display: flex; }
+  .scenario-detail__panel {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    max-width: 640px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 2rem;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+    position: relative;
+    animation: modalIn .25s ease-out;
+  }
+  @keyframes modalIn {
+    from { opacity: 0; transform: scale(0.95) translateY(10px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .scenario-detail__close {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    background: none; border: none;
+    color: var(--text-dim);
+    font-size: 1.4rem;
+    cursor: pointer;
+    width: 32px; height: 32px;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .2s;
+  }
+  .scenario-detail__close:hover { background: var(--bg-card-hover); color: var(--text-bright); }
+  .scenario-detail__badge { margin-bottom: 0.75rem; }
+  .scenario-detail__title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-bright);
+    margin-bottom: 1rem;
+    padding-right: 2rem;
+  }
+  .scenario-detail__section {
+    margin-bottom: 1rem;
+  }
+  .scenario-detail__section h4 {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-dim);
+    margin-bottom: 0.3rem;
+  }
+  .scenario-detail__section p,
+  .scenario-detail__section ul {
+    font-size: 0.92rem;
+    color: var(--text);
+  }
+  .scenario-detail__section ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  .scenario-detail__section ul li {
+    padding: 0.2rem 0;
+    padding-left: 1.2rem;
+    position: relative;
+  }
+  .scenario-detail__section ul li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--cyan);
+    font-weight: 700;
+  }
+
+  /* ── Prevention / Tips ── */
+  .tip {
+    background: rgba(45,226,197,0.04);
+    border-left: 3px solid var(--cyan);
+    border-radius: 0 6px 6px 0;
+    padding: 1rem 1.25rem;
+    margin: 1rem 0;
+    font-size: 0.88rem;
+  }
+  .tip--warn { border-left-color: var(--gold); background: rgba(242,199,68,0.04); }
+  .tip--danger { border-left-color: var(--danger); background: rgba(255,77,109,0.04); }
+  .tip strong { color: var(--text-bright); }
+
+  /* ── Training Tips Section ── */
+  .training-tips {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+  .training-tip-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    transition: all .3s;
+  }
+  .training-tip-card:hover {
+    border-color: rgba(80,200,120,0.2);
+    background: var(--bg-card-hover);
+  }
+  .training-tip-card__num {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: rgba(80,200,120,0.1);
+    color: #50c878;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.78rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+  }
+  .training-tip-card h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-bright);
+    margin-bottom: 0.3rem;
+  }
+  .training-tip-card p {
+    font-size: 0.84rem;
+    color: var(--text);
+  }
+
+  /* ── Reference Table ── */
+  .ref-table-wrap {
+    overflow-x: auto;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+  .ref-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+  .ref-table thead th {
+    background: var(--bg-card);
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.72rem;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .ref-table tbody td {
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+  }
+  .ref-table tbody tr:last-child td { border-bottom: none; }
+  .ref-table tbody tr:hover { background: var(--bg-card-hover); }
+  .ref-table tbody td:first-child { font-weight: 600; color: var(--text-bright); }
+
+  /* ── Section Nav ── */
+  .section-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2rem 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .section-nav a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.88rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    transition: all .2s;
+  }
+  .section-nav a:hover { background: var(--bg-card-hover); }
+
+  /* ── Footer ── */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 0;
+    margin-top: 2rem;
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 0.82rem;
+  }
+  .footer strong { color: var(--cyan); }
+
+  /* ── Responsive ── */
+  @media (max-width: 640px) {
+    .wrapper { padding: 0 1rem; }
+    .header { padding: 1.25rem 0 1rem; }
+    .header__titles h1 { font-size: 1.25rem; }
+    .header__icon { width: 44px; height: 44px; font-size: 1.2rem; }
+    .card-grid { grid-template-columns: 1fr; }
+    .intro h2 { font-size: 1.1rem; }
+    .toc { grid-template-columns: 1fr; padding: 1rem; }
+    .nav-link { font-size: 0.75rem; padding: 0.35rem 0.7rem; }
+    .scenario-detail__panel { padding: 1.25rem; }
+  }
+
+  /* ── Utility ── */
+  .mt-0 { margin-top: 0; }
+  .mb-1 { margin-bottom: 0.5rem; }
+  .mb-2 { margin-bottom: 1rem; }
+  .gap-1 { gap: 0.5rem; }
+  .flex { display: flex; }
+  .flex-wrap { flex-wrap: wrap; }
+  .items-center { align-items: center; }
+  .text-dim { color: var(--text-dim); }
+  .text-cyan { color: var(--cyan); }
+  .text-gold { color: var(--gold); }
+  .text-sm { font-size: 0.82rem; }
+</style>
+</head>
+<body>
+
+<!-- ─── PRINT HEADER ─── -->
+<div class="print-header">
+  <h1>⚡ Social Engineering Toolkit</h1>
+  <p>Awareness &amp; Training Reference — kyle.awa</p>
+</div>
+
+<!-- ─── HEADER ─── -->
+<header class="header">
+  <div class="wrapper header__inner">
+    <div class="header__icon">⚡</div>
+    <div class="header__titles">
+      <h1><span>Social Engineering</span> Toolkit</h1>
+      <p>Awareness &amp; Training — Common Attack Scenarios &amp; Prevention</p>
+    </div>
+    <div class="header__badge">v1.0 &middot; Training</div>
+  </div>
+</header>
+
+<!-- ─── STICKY NAV ─── -->
+<nav class="nav-bar" id="nav" role="navigation" aria-label="Section navigation">
+  <div class="wrapper nav-bar__inner">
+    <a href="#phishing" class="nav-link" data-section="phishing">📧 Phishing</a>
+    <a href="#pretexting" class="nav-link" data-section="pretexting">🎭 Pretexting</a>
+    <a href="#baiting" class="nav-link" data-section="baiting">💾 Baiting</a>
+    <a href="#tailgating" class="nav-link" data-section="tailgating">🚪 Tailgating</a>
+    <a href="#training" class="nav-link" data-section="training">🧠 Training Tips</a>
+    <a href="#reference" class="nav-link" data-section="reference">📋 Reference</a>
+  </div>
+</nav>
+
+<!-- ─── INTRO ─── -->
+<section class="intro">
+  <div class="wrapper">
+    <h2>Understand. Recognize. Resist.</h2>
+    <p>
+      Social engineering attacks exploit human psychology — not technical vulnerabilities.
+      This toolkit covers the most common manipulation techniques used by attackers,
+      with real-world scenarios, red flags, and actionable prevention tips.
+      Use this as a training reference for security awareness programs.
+    </p>
+  </div>
+</section>
+
+<!-- ─── TOC ─── -->
+<div class="wrapper">
+  <div class="toc">
+    <div class="toc__title">Jump to section</div>
+    <a href="#phishing"><span class="toc-dot" style="background:var(--danger)"></span> Phishing Scenarios</a>
+    <a href="#pretexting"><span class="toc-dot" style="background:var(--gold)"></span> Pretexting Examples</a>
+    <a href="#baiting"><span class="toc-dot" style="background:#b464ff"></span> Baiting Demonstrations</a>
+    <a href="#tailgating"><span class="toc-dot" style="background:var(--cyan)"></span> Tailgating Info</a>
+    <a href="#training"><span class="toc-dot" style="background:#50c878"></span> Awareness Training Tips</a>
+    <a href="#reference"><span class="toc-dot" style="background:var(--text-dim)"></span> Quick Reference</a>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!--  PHISHING                                              -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="wrapper">
+<section class="section" id="phishing">
+  <div class="section__header">
+    <h2>📧 Phishing Simulation Scenarios</h2>
+    <span class="count">5 scenarios</span>
+  </div>
+  <p class="text-dim text-sm mb-2">
+    Phishing attacks use deceptive messages — email, SMS, or voice — to trick
+    targets into revealing credentials, installing malware, or sending money.
+    Click any card to see the full breakdown.
+  </p>
+  <div class="card-grid" id="phishing-grid"></div>
+</section>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!--  PRETEXTING                                            -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="wrapper">
+<section class="section" id="pretexting">
+  <div class="section__header">
+    <h2>🎭 Pretexting Examples</h2>
+    <span class="count">4 examples</span>
+  </div>
+  <p class="text-dim text-sm mb-2">
+    Pretexting involves fabricating a backstory or assumed identity to gain
+    a target's trust and extract sensitive information or access.
+  </p>
+  <div class="card-grid" id="pretexting-grid"></div>
+</section>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!--  BAITING                                               -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="wrapper">
+<section class="section" id="baiting">
+  <div class="section__header">
+    <h2>💾 Baiting Demonstrations</h2>
+    <span class="count">4 demonstrations</span>
+  </div>
+  <p class="text-dim text-sm mb-2">
+    Baiting attacks offer something desirable — a free download, a USB drive,
+    or a "lost" item — in exchange for the target compromising security.
+  </p>
+  <div class="card-grid" id="baiting-grid"></div>
+</section>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!--  TAILGATING                                            -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="wrapper">
+<section class="section" id="tailgating">
+  <div class="section__header">
+    <h2>🚪 Tailgating &amp; Physical Access</h2>
+    <span class="count">3 scenarios</span>
+  </div>
+  <p class="text-dim text-sm mb-2">
+    Tailgating (or "piggybacking") relies on social courtesy to bypass
+    physical security controls. Attackers follow authorized personnel
+    through secured doors, turnstiles, or checkpoints.
+  </p>
+  <div class="card-grid" id="tailgating-grid"></div>
+</section>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!--  TRAINING TIPS                                         -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="wrapper">
+<section class="section" id="training">
+  <div class="section__header">
+    <h2>🧠 Awareness Training Tips</h2>
+    <span class="count">8 tips</span>
+  </div>
+  <p class="text-dim text-sm mb-2">
+    Build a security-minded culture. These actionable tips help individuals
+    and teams recognize and resist social engineering attempts.
+  </p>
+  <div class="training-tips" id="training-tips-grid"></div>
+
+  <div class="tip mt-0" style="margin-top:1.5rem;">
+    <strong>🔑 Key Principle:</strong> When in doubt, verify through a
+    separate, trusted channel. If an email from "IT" asks for your password,
+    pick up the phone and call the IT department directly. Trust, but verify.
+  </div>
+</section>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!--  REFERENCE TABLE                                       -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="wrapper">
+<section class="section" id="reference">
+  <div class="section__header">
+    <h2>📋 Quick Reference</h2>
+    <span class="count">Attack types at a glance</span>
+  </div>
+  <div class="ref-table-wrap">
+    <table class="ref-table">
+      <thead>
+        <tr>
+          <th>Attack Type</th>
+          <th>Human Vulnerability</th>
+          <th>Common Vector</th>
+          <th>Best Defense</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Phishing</td>
+          <td>Curiosity, urgency, fear</td>
+          <td>Email, SMS, chat, voice</td>
+          <td>Verify senders, don't click suspicious links</td>
+        </tr>
+        <tr>
+          <td>Spear Phishing</td>
+          <td>Trust in known contacts</td>
+          <td>Targeted email with personal details</td>
+          <td>Confirm unusual requests offline</td>
+        </tr>
+        <tr>
+          <td>Whaling</td>
+          <td>Respect for authority</td>
+          <td>Email impersonating executives</td>
+          <td>Multi-factor authentication, clear approval workflows</td>
+        </tr>
+        <tr>
+          <td>Vishing</td>
+          <td>Trust in phone calls</td>
+          <td>Phone call, VoIP spoofing</td>
+          <td>Hang up and call back on official number</td>
+        </tr>
+        <tr>
+          <td>Smishing</td>
+          <td>Immediacy of text messages</td>
+          <td>SMS with malicious links</td>
+          <td>Don't click links in unsolicited texts</td>
+        </tr>
+        <tr>
+          <td>Pretexting</td>
+          <td>Trust in a fabricated identity</td>
+          <td>In-person, phone, email</td>
+          <td>Verify identity through independent channels</td>
+        </tr>
+        <tr>
+          <td>Baiting</td>
+          <td>Greed, curiosity, convenience</td>
+          <td>USB drops, fake downloads, free offers</td>
+          <td>Never plug unknown devices; use official sources</td>
+        </tr>
+        <tr>
+          <td>Tailgating</td>
+          <td>Politeness, conflict avoidance</td>
+          <td>Physical proximity to secured entrances</td>
+          <td>Challenge strangers; use mantraps &amp; badges</td>
+        </tr>
+        <tr>
+          <td>Quid Pro Quo</td>
+          <td>Reciprocity, desire for help</td>
+          <td>Fake tech support, fake surveys</td>
+          <td>Verify the caller; never grant access unsolicited</td>
+        </tr>
+        <tr>
+          <td>Watering Hole</td>
+          <td>Trust in familiar websites</td>
+          <td>Compromised legitimate sites</td>
+          <td>Keep software updated; use endpoint protection</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+</div>
+
+<!-- ─── SECTION NAV ─── -->
+<div class="wrapper">
+  <div class="section-nav print-hide">
+    <a href="#phishing">📧 Phishing</a>
+    <a href="#training">🧠 Training Tips ↑</a>
+  </div>
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer class="footer">
+  <div class="wrapper">
+    <p>
+      <strong>Social Engineering Toolkit</strong> &mdash; Awareness &amp; Training Reference
+      &middot; Built for security awareness programs
+      &middot; <a href="#" onclick="window.print();return false">🖨️ Print / PDF</a>
+    </p>
+    <p style="margin-top:0.3rem; font-size:0.75rem;">
+      This is an educational resource. All scenarios are fictional and for training purposes only.
+    </p>
+  </div>
+</footer>
+
+<!-- ─── MODAL ─── -->
+<div class="scenario-detail" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="scenario-detail__panel">
+    <button class="scenario-detail__close" id="modal-close" aria-label="Close">&times;</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!--  JAVASCRIPT                                            -->
+<!-- ════════════════════════════════════════════════════════ -->
+<script>
+(function() {
+  'use strict';
+
+  /* ── Data ── */
+
+  const PHISHING_SCENARIOS = [
+    {
+      id: 'phish-1',
+      icon: '📨',
+      title: 'The Urgent Security Alert',
+      subtitle: 'False sense of account compromise',
+      desc: 'An email claiming to be from the IT security team warns that your account was accessed from an unrecognized location. It urges you to "verify your credentials immediately" via a link.',
+      scenario: 'You receive an email with the subject: "⚠️ Unauthorized Login Detected — Action Required." The sender appears to be security@company-secure.net. The message says your account was accessed from Russia and you must log in to confirm your identity. The link leads to a convincing but fake login page that captures your credentials.',
+      redFlags: [
+        'Generic greeting instead of your name ("Dear User")',
+        'Email domain is slightly off (company-secure.net vs company.com)',
+        'Urgent/ threatening language designed to bypass rational thought',
+        'Link URL does not match the legitimate company domain',
+        'Requests password or personal information via email'
+      ],
+      prevention: [
+        'Hover over links to inspect the actual URL before clicking',
+        'Navigate directly to the service by typing the URL manually',
+        'Enable multi-factor authentication everywhere',
+        'Report suspicious emails to your security team immediately',
+        'Never enter credentials after following an email link'
+      ],
+      badge: 'phishing',
+      outcome: 'Attacker captures login credentials and gains access to corporate email. They then pivot to internal systems or launch a Business Email Compromise attack against finance teams.'
+    },
+    {
+      id: 'phish-2',
+      icon: '📦',
+      title: 'The Fake Package Delivery',
+      subtitle: 'Exploiting online shopping habits',
+      desc: 'An SMS message claims a package delivery failed and asks you to reschedule via a link — a common smishing tactic.',
+      scenario: 'You receive a text: "USPS: Your package could not be delivered. Reschedule here: usps-delivery.top/track?ref=38291." You recently ordered online, so it seems plausible. The page asks for your address, phone number, and a "re-delivery fee" of $2.99 — a credit card harvesting page.',
+      redFlags: [
+        'Unsolicited message about a package you weren\'t expecting by name',
+        'URL domain is suspicious (usps-delivery.top is not usps.com)',
+        'Requests payment via credit card for a small fee (to avoid chargeback scrutiny)',
+        'Poor grammar or formatting in the message',
+        'Creates artificial urgency ("failed delivery")'
+      ],
+      prevention: [
+        'Check tracking numbers directly on the official carrier website',
+        'Never click links in unsolicited SMS messages',
+        'Use package tracking apps from official app stores',
+        'Report smishing attempts to the carrier and the FTC',
+        'If a fee is requested, it\'s almost certainly a scam'
+      ],
+      badge: 'phishing',
+      outcome: 'Credit card details and personal information are harvested. The attacker may also use the collected address/phone for identity theft or further targeted phishing.'
+    },
+    {
+      id: 'phish-3',
+      icon: '👔',
+      title: 'CEO Fraud / Whaling',
+      subtitle: 'Executive impersonation for wire fraud',
+      desc: 'An email from "the CEO" requests an urgent wire transfer to a new vendor, exploiting authority and time pressure.',
+      scenario: 'You receive an email from the CEO (display name matches, but the email address is ceo@company-holdings.co instead of @company.com). It says: "I\'m in a client meeting and need you to process an urgent payment of $47,350 to our new vendor. Details attached. I\'ll be unreachable for the next hour — please handle immediately." The attachment contains wire instructions.',
+      redFlags: [
+        'Email domain is different — one character off',
+        'Request bypasses normal approval/finance protocols',
+        'Creates urgency and asks you to bypass standard procedures',
+        'Claims the executive is "unreachable" to prevent verification',
+        'Uses generic language rather than the CEO\'s typical communication style'
+      ],
+      prevention: [
+        'Verify any unusual financial request via a phone call or in person',
+        'Establish a mandatory multi-person approval process for wire transfers',
+        'Use email authentication protocols (DMARC, DKIM, SPF)',
+        'Train staff on whaling and BEC (Business Email Compromise) tactics',
+        'Flag external emails with a banner: [EXTERNAL]'
+      ],
+      badge: 'phishing',
+      outcome: 'The $47,350 wire is sent to the attacker\'s account. By the time the fraud is discovered, the funds have been moved through multiple accounts internationally — rarely recoverable.'
+    },
+    {
+      id: 'phish-4',
+      icon: '🎧',
+      title: 'Vishing — Tech Support Scam',
+      subtitle: 'Phone-based credential harvesting',
+      desc: 'A caller claiming to be from "Microsoft Support" says your computer is infected and needs immediate remote access.',
+      scenario: 'You receive a phone call. The caller ID shows "Microsoft Corporation." The caller says: "This is David from Microsoft Windows Security. We\'ve detected multiple viruses on your computer. I need you to install this remote access tool so I can clean it up. The fee is $299 for the cleanup service." They guide you to a website to download a legitimate remote desktop tool (AnyDesk, TeamViewer).',
+      redFlags: [
+        'Microsoft does not make unsolicited technical support calls',
+        'The caller uses fear and urgency ("your data is at risk")',
+        'They want you to install remote access software',
+        'They request payment for a service you didn\'t request',
+        'The caller ID can be spoofed — don\'t trust what you see'
+      ],
+      prevention: [
+        'Hang up immediately — legitimate companies never call unsolicited',
+        'Never install software at the direction of an unsolicited caller',
+        'If concerned, hang up and call the company directly on their official number',
+        'Keep your operating system and antivirus up to date',
+        'Register your number on the National Do Not Call list'
+      ],
+      badge: 'phishing',
+      outcome: 'Once remote access is granted, the attacker installs malware, steals personal files, accesses banking credentials, and may hold the system for ransom.'
+    },
+    {
+      id: 'phish-5',
+      icon: '🔗',
+      title: 'LinkedIn Connection Trap',
+      subtitle: 'Social media pretexting for data gathering',
+      desc: 'A fake recruiter connects on LinkedIn and sends a "job description" containing malware.',
+      scenario: 'You receive a LinkedIn connection request from a "senior recruiter" at a well-known company. After accepting, they message you about a perfect role and attach a "job description.pdf.exe" file or send a link to a fake applicant tracking system that asks you to "log in with LinkedIn."',
+      redFlags: [
+        'The recruiter has few connections and a recently created profile',
+        'The job description is an executable file (.exe, .scr, .zip)',
+        'The link asks you to log in to a third-party site',
+        'The message contains generic flattery without specifics about your background',
+        'The company email domain doesn\'t match the company\'s real domain'
+      ],
+      prevention: [
+        'Validate recruiters by checking their company email address',
+        'Never open executable files from contacts you haven\'t met in person',
+        'Use LinkedIn\'s "Report" feature for suspicious messages',
+        'Keep your anti-malware software real-time scanning enabled',
+        'If it sounds too good to be true, it probably is'
+      ],
+      badge: 'phishing',
+      outcome: 'The attacker gains access to the victim\'s LinkedIn account (credential harvesting) or infects their system with malware. They may then use the compromised account to target the victim\'s network.'
+    }
+  ];
+
+  const PRETEXTING_SCENARIOS = [
+    {
+      id: 'pret-1',
+      icon: '🔧',
+      title: 'The Building Maintenance Ploy',
+      subtitle: 'Fake technician gains physical access',
+      desc: 'An attacker poses as a maintenance worker to gain entry to a secure office area and plant a listening device or drop a malicious USB.',
+      scenario: 'A person in a uniform with a clipboard and a ladder appears at your office. They say: "Facilities sent me to check the HVAC on floor 3. Someone reported a strange smell. I just need 10 minutes." They have a convincing badge and tools. Once inside, they plug a small device into an ethernet port under a desk or drop several USB drives labeled "HR Bonuses Q4."',
+      redFlags: [
+        'No advance notice from facilities management about the visit',
+        'The technician cannot provide a work order number',
+        'The uniform looks generic or doesn\'t match the contracted vendor',
+        'They prefer to work unsupervised or ask you to "not worry about it"',
+        'They loiter in common areas after the purported work is done'
+      ],
+      prevention: [
+        'Always verify maintenance visits with facilities management',
+        'Require escorted access for all non-employees in sensitive areas',
+        'Check photo ID and cross-reference with the vendor contract',
+        'Report unexpected maintenance personnel to security immediately',
+        'Never leave visitors unattended in secure areas'
+      ],
+      badge: 'pretexting',
+      outcome: 'A network implant provides persistent access to the corporate network, or USB drives are picked up by curious employees and plugged into company laptops, deploying malware.'
+    },
+    {
+      id: 'pret-2',
+      icon: '📊',
+      title: 'The Fake IT Auditor',
+      subtitle: 'Social engineering for system access',
+      desc: 'An attacker poses as an external auditor demanding login credentials and system access for a "compliance review."',
+      scenario: 'You receive a call from someone claiming to be from an external auditing firm. They say: "I\'m Sarah Chen from Deloitte. We\'re conducting your annual SOC 2 audit. I need your Active Directory credentials and a list of all privileged accounts by end of day. Your CISO requested this directly." They have researched the CISO\'s name and reference recent company news to sound legitimate.',
+      redFlags: [
+        'Auditors should never ask for your personal credentials',
+        'Audit requests should come through official channels (tickets, formal notices)',
+        'The request is urgent ("by end of day")',
+        'They cannot provide a ticket or reference number from your compliance team',
+        'No internal announcement about the audit was made'
+      ],
+      prevention: [
+        'Never share personal login credentials with anyone — ever',
+        'Verify audit requests with your compliance or security team via a known channel',
+        'External auditors should use temporary, provisioned accounts with limited scope',
+        'Implement a formal audit request process with ticketing and approval',
+        'Conduct periodic tabletop exercises simulating auditor pretexting'
+      ],
+      badge: 'pretexting',
+      outcome: 'The attacker obtains privileged credentials, giving them broad access to corporate systems. They exfiltrate sensitive data and may deploy ransomware using the elevated access.'
+    },
+    {
+      id: 'pret-3',
+      icon: '🆘',
+      title: 'The Distressed Employee',
+      subtitle: 'Emotional manipulation for credential reset',
+      desc: 'An attacker calls the help desk pretending to be a distressed employee who forgot their password.',
+      scenario: 'A call comes into the IT help desk. The caller sounds stressed and speaks quickly: "This is James from accounting — I\'m at the airport about to board a flight and I can\'t log into the VPN. I need my password reset right now or I\'ll miss this client deadline. My manager is going to kill me." The attacker has scraped James\'s name, department, and manager from LinkedIn or the company website.',
+      redFlags: [
+        'High-emotion, high-urgency request',
+        'Cannot verify identity through standard procedures (no token, no manager confirmation)',
+        'The caller discourages verification ("I\'m about to board, I don\'t have time")',
+        'Information they provide is publicly available (scraped from LinkedIn)',
+        'They request a specific action that bypasses security protocols'
+      ],
+      prevention: [
+        'Never bypass identity verification due to urgency — real employees plan ahead',
+        'Use a callback to a verified number on file',
+        'Require at least two factors for password resets (e.g., SMS + security question)',
+        'Train help desk staff to recognize social engineering red flags',
+        'Implement a "trusted contact" verification process for remote resets'
+      ],
+      badge: 'pretexting',
+      outcome: 'Help desk resets the password, attacker gains VPN access to the corporate network. They quietly explore the network, looking for sensitive data or lateral movement opportunities.'
+    },
+    {
+      id: 'pret-4',
+      icon: '🎓',
+      title: 'The Conference Researcher',
+      subtitle: 'Academic pretext for information gathering',
+      desc: 'An attacker poses as a researcher or journalist to extract sensitive company information through a "survey" or "interview."',
+      scenario: 'An email arrives from a university researcher: "I\'m conducting a study on cybersecurity practices in mid-sized tech firms. Could I schedule a 20-minute interview with someone from your security team?" During the call, they ask increasingly specific questions: "What SIEM do you use?", "How often do you run phishing simulations?", "What\'s your patch management process?" This information helps them plan a targeted attack.',
+      redFlags: [
+        'The researcher\'s university email is from a free domain (gmail.com, protonmail.com)',
+        'Questions become unusually specific about security tools and processes',
+        'They ask for names and roles of team members (for "attribution")',
+        'No published research or prior work can be found under their name',
+        'They resist having the conversation recorded or reviewed by legal'
+      ],
+      prevention: [
+        'Vet research requests through your communications or legal team',
+        'Use a pre-approved script of what can and cannot be discussed',
+        'Never disclose specific tool names, version numbers, or configurations',
+        'Direct researchers to public-facing information only',
+        'Log all external inquiries about security infrastructure'
+      ],
+      badge: 'pretexting',
+      outcome: 'The attacker maps your security tooling and finds gaps. They use this intel to craft a highly targeted attack that bypasses your known defenses.'
+    }
+  ];
+
+  const BAITING_SCENARIOS = [
+    {
+      id: 'bait-1',
+      icon: '💿',
+      title: 'The Parking Lot USB Drop',
+      subtitle: 'Curiosity-based malware delivery',
+      desc: 'USB drives labeled "Confidential — Employee Bonuses" are left in the parking lot, waiting for a curious employee to plug one in.',
+      scenario: 'Several USB drives are scattered in the parking lot, near the employee entrance, and in the break room. They\'re labeled with enticing text: "Q4 Salary Review — Confidential," "Employee Bonus Structure," or "HR Layoff List." The drives contain a hidden autorun script that installs a backdoor when plugged in.',
+      redFlags: [
+        'USB drives found in unusual places (parking lot, sidewalk, bathroom)',
+        'Labels with highly enticing or confidential-sounding text',
+        'No identifiable owner or department source',
+        'Found in numbers — attackers usually drop multiple for better odds',
+        'Labeled with emotionally charged topics (layoffs, bonuses, salaries)'
+      ],
+      prevention: [
+        'Never plug unknown USB drives into any computer — ever',
+        'Report found drives to IT/security immediately for safe disposal or analysis',
+        'Disable autorun on all company workstations via group policy',
+        'Use endpoint protection that blocks USB-based malware',
+        'Educate employees that curiosity is exactly what attackers exploit'
+      ],
+      badge: 'baiting',
+      outcome: 'An employee plugs the drive into their laptop. The malware installs a keylogger and backdoor, giving the attacker persistent remote access to the corporate network.'
+    },
+    {
+      id: 'bait-2',
+      icon: '🎮',
+      title: 'The Free Software Download',
+      subtitle: 'Trojanized software on torrent/pirate sites',
+      desc: 'A cracked version of expensive software is offered for "free download" — it contains hidden malware.',
+      scenario: 'An employee searches for a free alternative to expensive design software. They find a forum post offering "Adobe Photoshop 2025 Full Crack — No Survey, Direct Download." The download is a self-extracting archive containing the "crack" — which is actually a remote access trojan (RAT) that gives the attacker full control of the system.',
+      redFlags: [
+        'Software offered for free that normally costs hundreds of dollars',
+        'Source is an unverified forum, random blog, or file-sharing site',
+        'The download requires disabling antivirus or Windows Defender',
+        'The file is an executable (.exe) disguised as a document or archive',
+        'The setup process asks for administrator privileges unnecessarily'
+      ],
+      prevention: [
+        'Use only official software sources and approved corporate software catalog',
+        'Implement application whitelisting to block unauthorized executables',
+        'Keep antivirus/EDR enabled — never disable it for an installation',
+        'Educate teams on the risks of pirated software (legal & security)',
+        'Provide legitimate alternatives; budget for necessary software licenses'
+      ],
+      badge: 'baiting',
+      outcome: 'The attacker gains remote control of the machine, monitors keystrokes, captures screenshots, and uses the compromised workstation as a beachhead to move laterally in the network.'
+    },
+    {
+      id: 'bait-3',
+      icon: '🎁',
+      title: 'The Fake Giveaway / Contest',
+      subtitle: 'Social media bait for credential harvesting',
+      desc: 'A social media post promises a free iPhone or gift card in exchange for clicking a link and completing a "survey."',
+      scenario: 'A sponsored post on Instagram or Facebook reads: "🎉 FREE iPhone 16 Pro — We\'re giving away 100 units to celebrate our launch! Just complete a short survey to enter!" The survey asks for name, email, phone number, home address, and "which carrier do you use?" — and then a "shipping fee" of $1 to enter via credit card. The page looks professional with fake "winner" testimonials.',
+      redFlags: [
+        'Giveaways that seem too good to be true — they usually are',
+        'The account posting has very few followers or was recently created',
+        'They ask for a "verification fee" or "shipping fee" — real giveaways don\'t',
+        'The URL doesn\'t match the brand\'s official domain',
+        'No official announcement on the brand\'s verified social channels'
+      ],
+      prevention: [
+        'Only participate in giveaways from verified brand accounts',
+        'Never pay to enter a contest — that\'s not how legitimate giveaways work',
+        'Use unique passwords for each site to limit credential reuse damage',
+        'Check the brand\'s official website to confirm ongoing promotions',
+        'When in doubt, don\'t click — go directly to the official source'
+      ],
+      badge: 'baiting',
+      outcome: 'The attacker harvests personal information (name, address, phone, email) and credit card numbers. These are sold on dark web markets or used for identity theft.'
+    },
+    {
+      id: 'bait-4',
+      icon: '📱',
+      title: 'The Charging Station Trap',
+      subtitle: 'Physical bait via public USB charging ports',
+      desc: 'A compromised USB charging station (or a "free charger" left in a common area) secretly transfers data from connected devices.',
+      scenario: 'An attacker sets up a free charging station in a lobby, conference room, or airport lounge. The station looks legitimate — multiple cables, a sign saying "Free Charging." However, the USB ports are actually data-enabled. When an employee plugs in their phone to charge, a "juice jacking" attack extracts contacts, passwords, and corporate email tokens.',
+      redFlags: [
+        'Unofficial charging stations in lobbies, conference rooms, or common areas',
+        'Cables that look thicker than normal USB cables (data + power wires)',
+        'No branding or signage from a known facility management company',
+        'Station appears to have been set up recently without announcement',
+        '"Free" charging equipment left unattended in a public area'
+      ],
+      prevention: [
+        'Use charging-only cables (data blockers / USB condoms)',
+        'Use your own power adapter and plug into electrical outlets, not USB ports',
+        'Use a portable battery pack instead of unknown charging stations',
+        'Disable data transfer on your device when charging ("charge only" mode)',
+        'Report suspicious charging stations to facility security'
+      ],
+      badge: 'baiting',
+      outcome: 'Corporate credentials and personal data are extracted from the connected device. The attacker uses the harvested tokens to access corporate email and cloud services from the compromised phone.'
+    }
+  ];
+
+  const TAILGATING_SCENARIOS = [
+    {
+      id: 'tail-1',
+      icon: '☕',
+      title: 'The Coffee-Handed Colleague',
+      subtitle: 'Exploiting courtesy to bypass badge access',
+      desc: 'An attacker follows an employee through a secured door, claiming to have forgotten their badge or having their hands full.',
+      scenario: 'An employee approaches the secured entrance to their office building, badge in hand. A person behind them is carrying a coffee in one hand and a laptop bag in the other. They say: "Oh man, I forgot my badge at my desk — can you grab the door? I\'ve got my hands full. Thanks so much!" The employee holds the door. The attacker now has physical access to the building.',
+      redFlags: [
+        'Someone you don\'t recognize asking you to hold the door',
+        'The person claims to have "forgotten" their badge (repeatedly)',
+        'They use props (coffee, boxes, bags) to appear harmless and justify not badging in',
+        'They follow immediately behind you without making eye contact',
+        'They don\'t head to a specific office or desk once inside — they loiter'
+      ],
+      prevention: [
+        'Never hold a secured door open for someone you don\'t recognize',
+        'Every person must badge in individually — no exceptions',
+        'Challenge anyone who follows you without badging: "Can I help you?"',
+        'Use mantraps (two-door interlocking systems) at sensitive entrances',
+        'Report tailgating incidents to security — it\'s not rude, it\'s security'
+      ],
+      badge: 'tailgating',
+      outcome: 'The attacker gains unrestricted access to the building. They can plant devices, photograph sensitive documents, access server rooms, or simply observe employee behavior to plan further attacks.'
+    },
+    {
+      id: 'tail-2',
+      icon: '📦',
+      title: 'The Delivery Person Ploy',
+      subtitle: 'Fake delivery as pretext for entry',
+      desc: 'An attacker poses as a delivery person carrying large boxes to gain access through a loading dock or main entrance.',
+      scenario: 'An attacker wearing a delivery company uniform arrives at the loading dock with a large stack of boxes. They say to the security guard: "I\'ve got 20 boxes for the IT department. Can you point me to the freight elevator?" The guard, seeing the uniform and boxes, waves them through. The boxes contain network sniffing equipment. Once inside, the attacker finds an empty conference room and sets up.',
+      redFlags: [
+        'Delivery not expected or logged with the receiving department',
+        'The delivery person cannot provide a specific recipient\'s name or department extension',
+        'The delivery company vehicle is unmarked or has rental plates',
+        'The delivery is unusually large or vague in purpose',
+        'The delivery person seems unfamiliar with the buildings\' layout and procedures'
+      ],
+      prevention: [
+        'Require all deliveries to go through a dedicated receiving area',
+        'Verify delivery orders against a log before granting access',
+        'Escort all delivery personnel while they\'re in the building',
+        'Use separate entrances for deliveries with limited building access',
+        'Train loading dock staff to verify credentials and call the recipient'
+      ],
+      badge: 'tailgating',
+      outcome: 'The attacker sets up a network tap or deploys a rogue access point inside the building, capturing internal network traffic and credentials.'
+    },
+    {
+      id: 'tail-3',
+      icon: '👥',
+      title: 'The Conference Crowd Surf',
+      subtitle: 'Blending into a large group to bypass security',
+      desc: 'An attacker slips into a secure area by blending in with a large group during a busy event or shift change.',
+      scenario: 'During a company all-hands meeting or a catered lunch event, dozens of employees enter and exit a secured wing. The attacker, dressed professionally with a fake lanyard, blends into a group of employees heading into a secured floor. They chat casually about the "Q3 numbers" to sound like an employee. The badge reader beeps for the person in front, and the group flows through.',
+      redFlags: [
+        'Someone in the group who doesn\'t seem to know anyone',
+        'A lanyard or badge that looks slightly different (color, logo, font)',
+        'The person avoids direct eye contact or specific conversation',
+        'They enter during high-traffic times when security is most lax',
+        'They don\'t go to a specific office — they look around or check room numbers'
+      ],
+      prevention: [
+        'Implement mantraps or turnstiles that allow one person per badge swipe',
+        'Use security personnel during high-traffic events to monitor entrances',
+        'Require badge access for internal doors, not just the main entrance',
+        'Train employees to be aware during mass entry events',
+        'Conduct random badge checks in secure areas'
+      ],
+      badge: 'tailgating',
+      outcome: 'The attacker accesses a secure floor, finds an unoccupied desk area, and plugs a hardware keylogger into a shared workstation or connects a small network device.'
+    }
+  ];
+
+  const TRAINING_TIPS = [
+    {
+      num: 1,
+      title: 'Verify Before You Trust',
+      text: 'Always verify requests for sensitive information through a separate, trusted channel. If you receive an email asking for credentials or payment, call the requester on their official phone number — don\'t reply to the email or use a phone number listed in the suspicious message.'
+    },
+    {
+      num: 2,
+      title: 'Slow Down — Urgency Is a Red Flag',
+      text: 'Attackers create artificial urgency to bypass rational thinking. "Act now," "Your account will be locked," and "This expires in 24 hours" are designed to rush you. Take a moment, breathe, and evaluate the request critically.'
+    },
+    {
+      num: 3,
+      title: 'Check the URL Before You Click',
+      text: 'Hover over every link before clicking. Look for misspellings, unusual domains, or extra subdomains. Legitimate companies use their own domain — not variants like "secure-google.com" or "amazon-login.top." When in doubt, type the URL manually.'
+    },
+    {
+      num: 4,
+      title: 'Question Unexpected Attachments',
+      text: 'If you weren\'t expecting a document, don\'t open it — even from someone you know. Attackers compromise real accounts and send malware to the victim\'s contacts. Call the sender to verify they actually sent the file.'
+    },
+    {
+      num: 5,
+      title: 'Never Share Your Password — Ever',
+      text: 'No legitimate organization — IT, HR, your bank, or the government — will ever ask for your password via email, phone, or text. Your password is yours alone. Anyone asking for it is an attacker.'
+    },
+    {
+      num: 6,
+      title: 'Use Multi-Factor Authentication (MFA)',
+      text: 'MFA is your single best defense against credential theft. Even if an attacker gets your password, they can\'t log in without the second factor. Use app-based authenticators or hardware keys — SMS-based MFA is better than nothing but can be intercepted.'
+    },
+    {
+      num: 7,
+      title: 'Trust Your Gut — If It Feels Off, Report It',
+      text: 'Your intuition is a powerful security tool. If something feels unusual, manipulative, or too good to be true, report it to your security team. False alarms are fine — successful attacks are not.'
+    },
+    {
+      num: 8,
+      title: 'Practice Security Culture Daily',
+      text: 'Security isn\'t a one-time training — it\'s a daily habit. Lock your screen when you step away, badge in every time, question strangers, and keep your software updated. Build a culture where security is everyone\'s responsibility.'
+    }
+  ];
+
+  /* ── Render Functions ── */
+
+  function renderPhishingCard(s) {
+    return `
+      <div class="card card--phishing" data-id="${s.id}" data-type="phishing" tabindex="0" role="button" aria-label="View details: ${s.title}">
+        <div class="card__icon">${s.icon}</div>
+        <div class="card__title">${s.title}</div>
+        <div class="card__subtitle">${s.subtitle}</div>
+        <div class="card__desc">${s.desc}</div>
+        <div class="card__badges">
+          <span class="badge badge--phishing">Phishing</span>
+          <span class="tag">Email</span>
+          <span class="tag">Urgency</span>
+        </div>
+      </div>`;
+  }
+
+  function renderPretextingCard(s) {
+    return `
+      <div class="card card--pretexting" data-id="${s.id}" data-type="pretexting" tabindex="0" role="button" aria-label="View details: ${s.title}">
+        <div class="card__icon">${s.icon}</div>
+        <div class="card__title">${s.title}</div>
+        <div class="card__subtitle">${s.subtitle}</div>
+        <div class="card__desc">${s.desc}</div>
+        <div class="card__badges">
+          <span class="badge badge--pretexting">Pretexting</span>
+          <span class="tag">Identity</span>
+          <span class="tag">Trust</span>
+        </div>
+      </div>`;
+  }
+
+  function renderBaitingCard(s) {
+    return `
+      <div class="card card--baiting" data-id="${s.id}" data-type="baiting" tabindex="0" role="button" aria-label="View details: ${s.title}">
+        <div class="card__icon">${s.icon}</div>
+        <div class="card__title">${s.title}</div>
+        <div class="card__subtitle">${s.subtitle}</div>
+        <div class="card__desc">${s.desc}</div>
+        <div class="card__badges">
+          <span class="badge badge--baiting">Baiting</span>
+          <span class="tag">Curiosity</span>
+          <span class="tag">Physical</span>
+        </div>
+      </div>`;
+  }
+
+  function renderTailgatingCard(s) {
+    return `
+      <div class="card card--tailgating" data-id="${s.id}" data-type="tailgating" tabindex="0" role="button" aria-label="View details: ${s.title}">
+        <div class="card__icon">${s.icon}</div>
+        <div class="card__title">${s.title}</div>
+        <div class="card__subtitle">${s.subtitle}</div>
+        <div class="card__desc">${s.desc}</div>
+        <div class="card__badges">
+          <span class="badge badge--tailgating">Tailgating</span>
+          <span class="tag">Physical</span>
+          <span class="tag">Entry</span>
+        </div>
+      </div>`;
+  }
+
+  function renderTrainingTip(t) {
+    return `
+      <div class="training-tip-card">
+        <div class="training-tip-card__num">${t.num}</div>
+        <h4>${t.title}</h4>
+        <p>${t.text}</p>
+      </div>`;
+  }
+
+  function renderModalContent(s, badgeClass, badgeLabel) {
+    const redFlags = s.redFlags.map(f => `<li>${f}</li>`).join('');
+    const prevention = s.prevention.map(p => `<li>${p}</li>`).join('');
+
+    return `
+      <div class="scenario-detail__badge">
+        <span class="badge badge--${badgeClass}">${badgeLabel}</span>
+      </div>
+      <div class="scenario-detail__title" id="modal-title">${s.icon} ${s.title}</div>
+
+      <div class="scenario-detail__section">
+        <h4>Scenario</h4>
+        <p>${s.scenario || s.desc}</p>
+      </div>
+
+      <div class="scenario-detail__section">
+        <h4>🚩 Red Flags</h4>
+        <ul>${redFlags}</ul>
+      </div>
+
+      <div class="scenario-detail__section">
+        <h4>🛡️ Prevention</h4>
+        <ul>${prevention}</ul>
+      </div>
+
+      ${s.outcome ? `
+      <div class="tip tip--danger">
+        <strong>⚠️ Attack Outcome:</strong> ${s.outcome}
+      </div>` : ''}
+
+      <div class="tip">
+        <strong>💡 Remember:</strong> Social engineering exploits human psychology. Awareness is your strongest defense.
+      </div>`;
+  }
+
+  /* ── Init ── */
+
+  function init() {
+    // Populate grids
+    const phGrid = document.getElementById('phishing-grid');
+    if (phGrid) phGrid.innerHTML = PHISHING_SCENARIOS.map(renderPhishingCard).join('');
+
+    const prGrid = document.getElementById('pretexting-grid');
+    if (prGrid) prGrid.innerHTML = PRETEXTING_SCENARIOS.map(renderPretextingCard).join('');
+
+    const baGrid = document.getElementById('baiting-grid');
+    if (baGrid) baGrid.innerHTML = BAITING_SCENARIOS.map(renderBaitingCard).join('');
+
+    const taGrid = document.getElementById('tailgating-grid');
+    if (taGrid) taGrid.innerHTML = TAILGATING_SCENARIOS.map(renderTailgatingCard).join('');
+
+    const tipsGrid = document.getElementById('training-tips-grid');
+    if (tipsGrid) tipsGrid.innerHTML = TRAINING_TIPS.map(renderTrainingTip).join('');
+
+    // ── Modal Logic ──
+    const modal = document.getElementById('modal');
+    const modalContent = document.getElementById('modal-content');
+    const closeBtn = document.getElementById('modal-close');
+    const allScenarios = [
+      ...PHISHING_SCENARIOS.map(s => ({ ...s, type: 'phishing', badgeLabel: 'Phishing' })),
+      ...PRETEXTING_SCENARIOS.map(s => ({ ...s, type: 'pretexting', badgeLabel: 'Pretexting' })),
+      ...BAITING_SCENARIOS.map(s => ({ ...s, type: 'baiting', badgeLabel: 'Baiting' })),
+      ...TAILGATING_SCENARIOS.map(s => ({ ...s, type: 'tailgating', badgeLabel: 'Tailgating' }))
+    ];
+
+    function openModal(id) {
+      const s = allScenarios.find(x => x.id === id);
+      if (!s) return;
+      modalContent.innerHTML = renderModalContent(s, s.type, s.badgeLabel);
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // Click cards
+    document.querySelectorAll('.card[data-id]').forEach(el => {
+      el.addEventListener('click', function() {
+        openModal(this.dataset.id);
+      });
+      el.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openModal(this.dataset.id);
+        }
+      });
+    });
+
+    // Close handlers
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (modal) {
+      modal.addEventListener('click', function(e) {
+        if (e.target === this) closeModal();
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+      });
+    }
+
+    // ── Active Nav Link ──
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = ['phishing', 'pretexting', 'baiting', 'tailgating', 'training', 'reference'];
+
+    function updateActiveNav() {
+      let current = 'phishing';
+      for (const id of sections) {
+        const el = document.getElementById(id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 120) current = id;
+        }
+      }
+      navLinks.forEach(a => {
+        a.classList.toggle('active', a.dataset.section === current);
+      });
+    }
+
+    // Throttled scroll handler
+    let ticking = false;
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        window.requestAnimationFrame(function() {
+          updateActiveNav();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+    updateActiveNav();
+  }
+
+  // ── Boot ──
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+})();
+</script>
+
+</body>
+</html>
