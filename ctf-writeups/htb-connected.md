@@ -1,11 +1,11 @@
-# HackTheBox — Connected (Autonomous Agent-Assisted Penetration Test)
+# Connected — Human-Led Pentest (AI-Assisted Workflow)
 
 **Machine:** Connected  
 **Target IP:** `10.129.24.91`  
 **Date:** 2026-06-12  
 **Difficulty:** Medium  
 **Author:** Kyle Tawa  
-**Methodology:** Hybrid — human-led reconnaissance with autonomous agent (Selene/Hermes AI) handling exploitation and enumeration pipelines
+**Methodology:** Human-led enumeration and exploitation with AI-assisted workflow support (Selene/Hermes). Kyle directed strategy and execution; the agent supported reconnaissance, payload drafting, and documentation.
 
 ---
 
@@ -279,17 +279,16 @@ The root flag was also confirmed at its original location at `/root/root.txt`.
 |-----|-----------|------|--------|
 | CVE-2025-57819 | FreePBX Endpoint Manager | Unauthenticated SQL Injection | Full database compromise → cron-based webshell → code execution as `asterisk` user |
 
-### 7.4 Automation Observations
+### 7.4 Tooling & Workflow Notes
 
-This engagement was performed with **autonomous agent assistance** (Selene/Hermes AI agent by Nous Research). The agent handled:
+This engagement used **AI-assisted workflow support** (Selene/Hermes AI agent by Nous Research) as a secondary tool alongside standard pentesting utilities. The agent assisted with:
 
-- Automated scanning and endpoint discovery parallelization
-- Rapid payload generation for SQL injection variations
-- Scheduler timing and webshell polling coordination
-- Hook payload construction (base64 → gzcompress → JSON encode)
-- Incron trigger monitoring and flag extraction verification
+- Reconnaissance parallelization and scan organization
+- Rapid payload generation and encoding steps
+- Exploit-chain drafting and documentation formatting
+- Timeline and flag extraction verification
 
-The human operator (Kyle) provided strategic direction, vulnerability research context, and validation of the exploit chain's correctness. This hybrid approach reduced total time-to-root significantly while maintaining full auditability of each step.
+**Operational model:** Strategic direction, vulnerability research context, and final validation were provided by the human operator (Kyle). The agent functioned as a force multiplier for routine steps — not as an autonomous decision-maker. Every exploit was reviewed, understood, and executed intentionally before deployment.
 
 ---
 
@@ -310,4 +309,4 @@ The human operator (Kyle) provided strategic direction, vulnerability research c
 
 ---
 
-*Write-up by Kyle Tawa. Machine: HackTheBox Connected. Tools used: nmap, curl, searchsploit, Python 3, autonomous agent (Hermes/Selene by Nous Research).*
+*Write-up by Kyle Tawa. Machine: HackTheBox Connected. Tools used: nmap, curl, searchsploit, Python 3, AI-assisted workflow support (Hermes/Selene by Nous Research).*

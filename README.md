@@ -25,9 +25,9 @@ I'm **Tawanda Chihata** — known across the security community as **Kyle.exe**.
 
 > **Selene OS** — a Jarvis-style personal AI operating system running on my pentest rig (`chihata`, a Dell Latitude 5420 on Ubuntu).
 >
-> It's a full stack I've built piece by piece: a Telegram bot front-end, an agent framework (Hermes) running DeepSeek-R1 for reasoning, wake-word voice control, automated UFW firewall profile management, and a recon pipeline that runs pentesting workflows with no hands on the keyboard. It now ships with a 754-skill cybersecurity skills library the agent consults autonomously, plus a Flask API and a PWA dashboard with a deep-space sci-fi UI — which is also where this whole color palette comes from.
+> It's a full stack I've built piece by piece: a Telegram bot front-end, an agent framework (Hermes) for reasoning support, wake-word voice control, automated UFW firewall profile management, and a recon pipeline for authorized lab workflows. It includes a cybersecurity skills library, plus tooling for structured notes, repeatable checks, and security-focused automation.
 >
-> I used it to autonomously root an HTB box end-to-end with zero manual intervention. Still actively building.
+> I use it to support authorized HTB/TryHackMe lab work: organizing reconnaissance, documenting findings, and keeping security workflows repeatable while human judgment stays in control. Still actively building.
 
 ---
 
@@ -36,8 +36,8 @@ I'm **Tawanda Chihata** — known across the security community as **Kyle.exe**.
 🔓 **Bug Bounty — Code.org (Bugcrowd)**
 First live bounty submission. Found admin route enumeration and a Rails debug-mode disclosure (`config.consider_all_requests_local = true`), wrote it up as a P3 with full CVSS scoring and RFC references.
 
-🤖 **HTB "Connected" — Autonomous Root**
-Set my Hermes AI agent loose on a FreePBX box and let it work the full chain unattended: pre-auth SQL injection (CVE-2025-57819) → cron-based webshell → `fwconsole` privilege escalation to root. Proof the agentic workflow actually holds up.
+🤖 **HTB "Connected" — AI-Assisted Lab Work**
+Human-led FreePBX enumeration and exploitation, with Hermes supporting workflow, payload drafting, and documentation. CVE-2025-57819 → incron → root. Proof that the agentic workflow augments pentesting skill, not replaces it.
 📄 [Full write-up →](ctf-writeups/htb-connected.md)
 
 🧰 **[pentest-toolkit](https://github.com/kyletawa/pentest-toolkit)**
