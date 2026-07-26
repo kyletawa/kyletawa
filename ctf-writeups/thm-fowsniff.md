@@ -59,15 +59,15 @@ Checking the Twitter profile for @fowsniffcorp (still accessible during the CTF'
 The Pastebin page (`https://pastebin.com/NrAqVeeX`) contained a list of usernames with what appeared to be MD5 password hashes. Nine employees were listed:
 
 ```
-mauer@fowsniff:8a28a94a588a95b80163709ab4313aa4
-mustikka@fowsniff:ae1644dac5b77c0cf51e0d26ad6d7e56
-tegel@fowsniff:1dc352435fecca338acfd4be10984009
-baksteen@fowsniff:19f5af754c31f1e2651edde9250d69bb
-seina@fowsniff:90dc16d47114aa13671c697fd506cf26
-stone@fowsniff:a92b8a29ef1183192e3d35187e0cfabd
-mursten@fowsniff:0e9588cb62f4b6f27e33d449e2ba0b3b
-parede@fowsniff:4d6e42f56e127803285a0a7649b5ab11
-sciana@fowsniff:f7fd98d380735e859f8b2ffbbede5a7e
+mauer@fowsniff:[REDACTED]
+mustikka@fowsniff:[REDACTED]
+tegel@fowsniff:[REDACTED]
+baksteen@fowsniff:[REDACTED]
+seina@fowsniff:[REDACTED]
+stone@fowsniff:[REDACTED]
+mursten@fowsniff:[REDACTED]
+parede@fowsniff:[REDACTED]
+sciana@fowsniff:[REDACTED]
 ```
 
 The Pastebin also warned that **the POP3 server was open and accessible** — confirming the attack surface we identified in our nmap scan.

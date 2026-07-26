@@ -277,8 +277,8 @@ cat /root/root.txt
 
 | Flag | Location | Value |
 |------|----------|-------|
-| **User Flag** | `/home/elyana/user.txt` | `THM{49jg666alb5e76shrusn49jg666alb5e76shrusn}` |
-| **Root Flag** | `/root/root.txt` | `THM{uem2wigbuem2wigb68sn2j1ospi868sn2j1ospi8}` |
+| **User Flag** | `/home/elyana/user.txt` | `THM{[REDACTED]}` |
+| **Root Flag** | `/root/root.txt` | `THM{[REDACTED]}` |
 
 ---
 

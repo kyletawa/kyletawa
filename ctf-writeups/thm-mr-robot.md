@@ -129,7 +129,7 @@ This is a deliberate design choice — the room gives you both the flag and the 
 curl -s http://<TARGET_IP>/key-1-of-3.txt
 ```
 
-> **Key 1:** `073403c8a58a1f80d943455fb30724b9`
+> **Key 1:** `[REDACTED]`
 
 The first flag was captured immediately upon reading the file. The flag naming convention (`key-1-of-3.txt`) gives clear context about the room's structure.
 
@@ -334,7 +334,7 @@ cat /root/key-3-of-3.txt
 
 | #  | Name          | File Path             | Access Method                | Value (Example)                         |
 |----|---------------|-----------------------|------------------------------|------------------------------------------|
-| 1  | Key 1 of 3    | `/key-1-of-3.txt`     | `robots.txt` → direct curl   | `073403c8a58a1f80d943455fb30724b9`       |
+| 1  | Key 1 of 3    | `/key-1-of-3.txt`     | `robots.txt` → direct curl   | `[REDACTED]`       |
 | 2  | Key 2 of 3    | On filesystem          | `www-data` reverse shell      | Retrieved post-exploitation              |
 | 3  | Key 3 of 3    | `/root/key-3-of-3.txt`| `sudo` escalation to root    | Retrieved as root                        |
 

