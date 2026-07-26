@@ -36,10 +36,6 @@ I'm **Tawanda Chihata** — known across the security community as **Kyle.exe**.
 🔓 **Bug Bounty — Code.org (Bugcrowd)**
 First live bounty submission. Found admin route enumeration and a Rails debug-mode disclosure (`config.consider_all_requests_local = true`), wrote it up as a P3 with full CVSS scoring and RFC references.
 
-🤖 **HTB "Connected" — AI-Assisted Lab Work**
-Human-led FreePBX enumeration and exploitation, with Hermes supporting workflow, payload drafting, and documentation. CVE-2025-57819 → incron → root. Proof that the agentic workflow augments pentesting skill, not replaces it.
-📄 [Full write-up →](ctf-writeups/htb-connected.md)
-
 🧰 **[pentest-toolkit](https://github.com/kyletawa/pentest-toolkit)**
 My personal toolkit repo — recon scripts, reverse shell generators, and the utilities I reach for on every box.
 
@@ -47,8 +43,8 @@ My personal toolkit repo — recon scripts, reverse shell generators, and the ut
 My terminal-themed portfolio site built with React + Vite — live on GitHub Pages.
 
 📄 **CTF Write-Up Portfolio**
-Documented walkthroughs across All In One, Pickle Rick, Fowsniff, Takeover, Mr. Robot, and HTB Connected.
-[All In One](ctf-writeups/thm-all-in-one.md) · [Pickle Rick](ctf-writeups/thm-pickle-rick.md) · [Fowsniff](ctf-writeups/thm-fowsniff.md) · [Takeover](ctf-writeups/thm-takeover.md) · [Mr. Robot](ctf-writeups/thm-mr-robot.md) · [HTB Connected](ctf-writeups/htb-connected.md)
+Documented walkthroughs across All In One, Pickle Rick, Fowsniff, Takeover, and Mr. Robot.
+[All In One](ctf-writeups/thm-all-in-one.md) · [Pickle Rick](ctf-writeups/thm-pickle-rick.md) · [Fowsniff](ctf-writeups/thm-fowsniff.md) · [Takeover](ctf-writeups/thm-takeover.md) · [Mr. Robot](ctf-writeups/thm-mr-robot.md)
 
 🎭 **[Social Engineering Toolkit](social-engineering-toolkit.html)**
 A single-file HTML app covering common social engineering attack scenarios and awareness training.
