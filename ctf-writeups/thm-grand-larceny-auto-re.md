@@ -119,7 +119,7 @@ class Program {
 $ dotnet run
 # Output:
 # VAULT UNSEALED
-# THM{h0tf1x3d_my_0wn_w4nt3d_l3v3l}
+# THM{[REDACTED]}
 ```
 
 ### Step 5 — Red herring: CheatConsole
@@ -127,7 +127,7 @@ $ dotnet run
 There's a `CheatConsole.Submit()` method that checks for code `"L0SV4NT0S247"` and returns:
 
 ```
-THM{ch34t_c0d3s_4r3_f0r_t0ur1sts}
+THM{[REDACTED]}
 ```
 
 This is a **decoy flag**. The actual challenge flag comes from the vault decryption path only.
@@ -137,7 +137,7 @@ This is a **decoy flag**. The actual challenge flag comes from the vault decrypt
 ## The Flag
 
 ```
-THM{h0tf1x3d_my_0wn_w4nt3d_l3v3l}
+THM{[REDACTED]}
 ```
 
 ---

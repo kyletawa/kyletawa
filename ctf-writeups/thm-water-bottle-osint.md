@@ -65,7 +65,7 @@ The address confirmed the location:
 ### Step 4 — Submit the flag
 
 ```
-THM{aquabest_639228721288}
+THM{[REDACTED]}
 ```
 
 ---
