@@ -55,6 +55,22 @@ Active on **Bugcrowd** — accepted a P3 against Code.org (admin route enumerati
 
 ---
 
+## 🖥️ Cyber Projects & Portfolio
+
+🖥️ **[offensive-security-portfolio](https://github.com/kyletawa/offensive-security-portfolio)**
+CTF writeups, labs, CVE reproductions, bug bounty findings, and security research.
+
+🧰 **[pentest-toolkit](https://github.com/kyletawa/pentest-toolkit)**
+My personal toolkit repo — recon scripts, reverse shell generators, and utilities for every box.
+
+📝 **[kyle-exe-blog](https://github.com/kyletawa/kyle-exe-blog)**
+Blog with CTF writeups, cybersecurity tutorials, and IT field notes.
+
+🏢 **[coresec-group-website](https://github.com/kyletawa/coresec-group-website)**
+Company site for CoreSec Group — secure systems, IT support, and consulting.
+
+---
+
 ## 🎯 Current Goals
 
 - ⚔️ Pass **eJPT**
