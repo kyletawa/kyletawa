@@ -8,30 +8,32 @@
 
 ---
 
-### `$ whoami`
-
-I'm **Tawanda Chihata** — known across the security community as **Kyle.exe**. I spent the last ~3 years as an IT support specialist, the person fixing what's broken. Now I'm learning to find what's broken before anyone else does.
-
-- 🛠️ **3 years** in IT support — helpdesk, freelance consulting, the full "have you tried turning it off and on again" arc
-- 🎯 Currently pivoting into **penetration testing & bug bounty hunting**
-- 📚 Working toward **CompTIA Security+** and **eJPT**
-- 🤖 Building **Selene OS** — my own AI-driven pentest automation stack (more below)
-- 🌍 Based in Cape Town, South Africa — roots in Zimbabwe
-- ♟️ Off the clock: chess, desktop theming, sci-fi, and anything cyberpunk
+## 🛡️ Offensive Security (in progress) | 🖥️ IT Support Specialist | 🧠 Building CoreSec Group
 
 ---
 
-### `$ cat current_build.md`
+## 🧑‍💻 About Me
 
-> **Selene OS** — a Jarvis-style personal AI operating system running on my pentest rig (`chihata`, a Dell Latitude 5420 on Ubuntu).
->
-> It's a full stack I've built piece by piece: a Telegram bot front-end, an agent framework (Hermes) for reasoning support, wake-word voice control, automated UFW firewall profile management, and a recon pipeline for authorized lab workflows. It includes a cybersecurity skills library, plus tooling for structured notes, repeatable checks, and security-focused automation.
->
-> I use it to support authorized HTB/TryHackMe lab work: organizing reconnaissance, documenting findings, and keeping security workflows repeatable while human judgment stays in control. Still actively building.
+💼 IT Support Specialist based in Cape Town, South Africa  
+⚡ ~3 years across freelance consulting, LBB Foods, and Individual Zone Solutions  
+🎯 Transitioning into offensive security & penetration testing  
+📚 Working toward **eJPT** — foundations covered via CompTIA A+ study and Security+ material  
+🏴 Active on TryHackMe (OSINT, web exploitation, Active Directory) and HTB  
+🐛 Bug bounty hunter on Bugcrowd  
+🏢 Founder of **CoreSec Group (Pty) Ltd**  
+♟️ Also cooking up code (and food — I moonlight as a cook at Gordon's Sweets)
 
 ---
 
-### `$ ls -la cyber_projects/`
+## 🛠️ Currently Building
+
+- **[Hermes](#)** — a multi-agent cybersecurity system: Flask/SSE backend, a 754-skill security library, DeepSeek-R1 via OpenRouter, with an in-progress "Selene OS" Next.js/React dashboard (voice interaction, live waveform, SSE streaming). Deployed on a Hetzner VPS with Tailscale.
+- **[CoreSec Group website](#)** — five-page static site for my consultancy, dark mode, Space Grotesk / IBM Plex typography.
+- **Pentest toolkit** — a growing set of recon/automation scripts (`netcheck.sh`, `ufw-profile.sh`, and others) built for my own lab workflow.
+
+---
+
+## 🖥️ Cyber Projects & Portfolio
 
 🖥️ **[cyber-portfolio](https://github.com/kyletawa/cyber-portfolio)**
 Cybersecurity portfolio site with CTF writeups, labs, tools, and projects.
@@ -47,7 +49,7 @@ Company site for CoreSec Group — secure systems, IT support, and consulting.
 
 ---
 
-### `$ ls -la projects/`
+## 🏴 Recent CTF & Lab Work
 
 🔓 **Bug Bounty — Code.org (Bugcrowd)**
 First live bounty submission. Found admin route enumeration and a Rails debug-mode disclosure (`config.consider_all_requests_local = true`), wrote it up as a P3 with full CVSS scoring and RFC references.
