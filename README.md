@@ -31,6 +31,22 @@ I'm **Tawanda Chihata** — known across the security community as **Kyle.exe**.
 
 ---
 
+### `$ ls -la cyber_projects/`
+
+🖥️ **[cyber-portfolio](https://github.com/kyletawa/cyber-portfolio)**
+Cybersecurity portfolio site with CTF writeups, labs, tools, and projects.
+
+🧰 **[pentest-toolkit](https://github.com/kyletawa/pentest-toolkit)**
+My personal toolkit repo — recon scripts, reverse shell generators, and utilities for every box.
+
+📝 **[kyle-exe-blog](https://github.com/kyletawa/kyle-exe-blog)**
+Blog with CTF writeups, cybersecurity tutorials, and IT field notes.
+
+🏢 **[coresec-group-website](https://github.com/kyletawa/coresec-group-website)**
+Company site for CoreSec Group — secure systems, IT support, and consulting.
+
+---
+
 ### `$ ls -la projects/`
 
 🔓 **Bug Bounty — Code.org (Bugcrowd)**
