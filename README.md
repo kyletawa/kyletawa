@@ -1,26 +1,18 @@
-<div align="center">
+# 👋 I'm Tawanda Chihata — aka Kyle.exe
 
-![Kyle.exe banner](./banner.svg)
-
-[![Typing SVG](https://readme-typing-svg.demolab.com/?font=Fira+Code&weight=600&size=22&duration=3200&pause=900&color=2DE2C5&center=true&vCenter=true&width=650&height=45&lines=IT+Support+Specialist+to+Penetration+Tester;Building+Selene+OS+-+AI-driven+pentest+automation;Security%2B+%7C+eJPT+%7C+Bug+Bounty+Hunter;Cape+Town%2C+South+Africa)](https://github.com/kyletawa)
-
-</div>
-
----
-
-## 🛡️ Offensive Security (in progress) | 🖥️ IT Support Specialist | 🧠 Building CoreSec Group
+### 🛡️ Offensive Security (in progress) | 🖥️ IT Support Specialist | 🧠 Building CoreSec Group
 
 ---
 
 ## 🧑‍💻 About Me
 
-💼 IT Support Specialist based in Cape Town, South Africa  
-⚡ ~3 years across freelance consulting, LBB Foods, and Individual Zone Solutions  
-🎯 Transitioning into offensive security & penetration testing  
-📚 Working toward **eJPT** — foundations covered via CompTIA A+ study and Security+ material  
-🏴 Active on TryHackMe (OSINT, web exploitation, Active Directory) and HTB  
-🐛 Bug bounty hunter on Bugcrowd  
-🏢 Founder of **CoreSec Group (Pty) Ltd**  
+💼 IT Support Specialist based in Cape Town, South Africa
+⚡ ~3 years across freelance consulting, LBB Foods, and Individual Zone Solutions
+🎯 Transitioning into offensive security & penetration testing
+📚 Working toward **eJPT** — foundations covered via CompTIA A+ study and Security+ material
+🏴 Active on TryHackMe (OSINT, web exploitation, Active Directory) and HTB
+🐛 Bug bounty hunter on Bugcrowd
+🏢 Founder of **CoreSec Group (Pty) Ltd**
 ♟️ Also cooking up code (and food — I moonlight as a cook at Gordon's Sweets)
 
 ---
@@ -33,103 +25,42 @@
 
 ---
 
-## 🖥️ Cyber Projects & Portfolio
-
-🖥️ **[cyber-portfolio](https://github.com/kyletawa/cyber-portfolio)**
-Cybersecurity portfolio site with CTF writeups, labs, tools, and projects.
-
-🧰 **[pentest-toolkit](https://github.com/kyletawa/pentest-toolkit)**
-My personal toolkit repo — recon scripts, reverse shell generators, and utilities for every box.
-
-📝 **[kyle-exe-blog](https://github.com/kyletawa/kyle-exe-blog)**
-Blog with CTF writeups, cybersecurity tutorials, and IT field notes.
-
-🏢 **[coresec-group-website](https://github.com/kyletawa/coresec-group-website)**
-Company site for CoreSec Group — secure systems, IT support, and consulting.
-
----
-
 ## 🏴 Recent CTF & Lab Work
 
-🔓 **Bug Bounty — Code.org (Bugcrowd)**
-First live bounty submission. Found admin route enumeration and a Rails debug-mode disclosure (`config.consider_all_requests_local = true`), wrote it up as a P3 with full CVSS scoring and RFC references.
+Working through TryHackMe and HTB, progressing from foundational rooms into full attack chains:
 
-🧰 **[pentest-toolkit](https://github.com/kyletawa/pentest-toolkit)**
-My personal toolkit repo — recon scripts, reverse shell generators, and the utilities I reach for on every box.
+- **Active Directory:** SoupeDecode 01 (RID brute → username-as-password spray → Kerberoasting → Pass-the-Hash)
+- **Web exploitation:** Whiterose (IDOR + EJS SSTI), Bricks Heist (CVE-2024-25600 WordPress RCE), TryHeartMe (JWT `alg: none`), Billing (CVE-2023-30258 pre-auth command injection)
+- **HTB:** Connected (FreePBX pre-auth SQLi → cron webshell → privesc — first box rooted autonomously by my Hermes agent), Cap (IDOR pcap → FTP creds → `cap_setuid` privesc)
+- **OSINT / DFIR:** Dev Diaries, Have a Break, OhSINT, Missing Person
+- **Reverse engineering:** Grand Larceny Auto (Godot/.NET, Confuser obfuscation)
 
-🌐 **[kyle-portfolio](https://kyletawa.github.io/kyle-portfolio/)**
-My terminal-themed portfolio site built with React + Vite — live on GitHub Pages.
-
-📄 **CTF Write-Up Portfolio**
-Documented walkthroughs across All In One, Pickle Rick, Fowsniff, Takeover, and Mr. Robot.
-[All In One](ctf-writeups/thm-all-in-one.md) · [Pickle Rick](ctf-writeups/thm-pickle-rick.md) · [Fowsniff](ctf-writeups/thm-fowsniff.md) · [Takeover](ctf-writeups/thm-takeover.md) · [Mr. Robot](ctf-writeups/thm-mr-robot.md)
-
-🎭 **[Social Engineering Toolkit](social-engineering-toolkit.html)**
-A single-file HTML app covering common social engineering attack scenarios and awareness training.
-
-🍬 **Gordon's Sweets**
-Freelance portfolio site built for a Cape Town candy manufacturer — full design-to-deploy client project.
+Full writeups: [tawandablog.netlify.app](https://tawandablog.netlify.app)
 
 ---
 
-### `$ tech --arsenal`
+## 🐛 Bug Bounty
 
-<p> 
-<img src="https://img.shields.io/badge/Linux-0D1117?style=for-the-badge&logo=linux&logoColor=2DE2C5" />
-<img src="https://img.shields.io/badge/Ubuntu-0D1117?style=for-the-badge&logo=ubuntu&logoColor=2DE2C5" />
-<img src="https://img.shields.io/badge/Bash%2FZsh-0D1117?style=for-the-badge&logo=gnubash&logoColor=2DE2C5" />
-<img src="https://img.shields.io/badge/Python-0D1117?style=for-the-badge&logo=python&logoColor=2DE2C5" />
-<img src="https://img.shields.io/badge/JavaScript-0D1117?style=for-the-badge&logo=javascript&logoColor=2DE2C5" />
-<img src="https://img.shields.io/badge/React-0D1117?style=for-the-badge&logo=react&logoColor=2DE2C5" />
-<img src="https://img.shields.io/badge/Git-0D1117?style=for-the-badge&logo=git&logoColor=2DE2C5" />
-</p>
-<p>
-<img src="https://img.shields.io/badge/Nmap-0D1117?style=for-the-badge&logoColor=F2C744" />
-<img src="https://img.shields.io/badge/Burp%20Suite-0D1117?style=for-the-badge&logoColor=F2C744" />
-<img src="https://img.shields.io/badge/Metasploit-0D1117?style=for-the-badge&logoColor=F2C744" />
-<img src="https://img.shields.io/badge/Wireshark-0D1117?style=for-the-badge&logo=wireshark&logoColor=F2C744" />
-<img src="https://img.shields.io/badge/Tailscale-0D1117?style=for-the-badge&logo=tailscale&logoColor=F2C744" />
-</p>
+Active on **Bugcrowd** — accepted a P3 against Code.org (admin route enumeration + Rails debug mode disclosure), and reviewed CRLF injection / SSRF reports for LaunchDarkly.
 
 ---
 
-### `$ status --stats`
+## 🎯 Current Goals
 
-<div align="center">
-
-<img src="https://github-readme-stats.vercel.app/api?username=kyletawa&show_icons=true&theme=transparent&title_color=2DE2C5&icon_color=F2C744&text_color=C9D6DF&bg_color=0D1117&border_color=14919B&hide_border=false" width="48%" />
-<img src="https://github-readme-streak-stats.herokuapp.com/?user=kyletawa&theme=dark&hide_border=true&background=0D1117&ring=2DE2C5&fire=F2C744&currStreakLabel=2DE2C5" width="38%" />
-
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=kyletawa&layout=compact&theme=transparent&title_color=2DE2C5&text_color=C9D6DF&bg_color=0D1117&border_color=14919B" width="40%" />
-
-</div>
+- ⚔️ Pass **eJPT**
+- 🛡️ Grow CoreSec Group into a full IT & cybersecurity consultancy
+- 🐛 Land more valid bug bounty findings
+- 🎯 Break into a SOC Analyst or junior offensive security role
+- 🤖 Keep pushing Hermes/Selene OS toward a real Jarvis-style assistant
 
 ---
 
-### `$ roadmap --2026`
+## 🌍 Connect
 
-- [ ] Pass **CompTIA Security+**
-- [ ] Pass **eJPT**
-- [ ] Progress into broader-scope bounty programs (Web.com, TripAdvisor)
-- [ ] Keep shipping Selene OS — open-source what's safe to share
-- [ ] Document every box, every time
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/tawandachihata/)
+[![Portfolio](https://img.shields.io/badge/Portfolio-4285F4?style=for-the-badge&logo=google-chrome&logoColor=white)](https://tawandachihata.netlify.app)
+[![Blog](https://img.shields.io/badge/Writeups-000000?style=for-the-badge&logo=hashnode&logoColor=white)](https://tawandablog.netlify.app)
 
 ---
 
-### `$ connect --me`
-
-<p>
-<a href="https://www.linkedin.com/in/tawandachihata/"><img src="https://img.shields.io/badge/LinkedIn-0D1117?style=for-the-badge&logo=linkedin&logoColor=2DE2C5" /></a>
-<a href="https://github.com/kyletawa"><img src="https://img.shields.io/badge/GitHub-0D1117?style=for-the-badge&logo=github&logoColor=F2C744" /></a>
-<a href="https://x.com/KyleChihata"><img src="https://img.shields.io/badge/X-0D1117?style=for-the-badge&logo=x&logoColor=2DE2C5" /></a>
-<a href="https://www.facebook.com/KyleChihata/"><img src="https://img.shields.io/badge/Facebook-0D1117?style=for-the-badge&logo=facebook&logoColor=2DE2C5" /></a>
-<a href="https://www.reddit.com/user/blackkaiiser/"><img src="https://img.shields.io/badge/Reddit-0D1117?style=for-the-badge&logo=reddit&logoColor=F2C744" /></a>
-</p>
-
----
-
-<div align="center">
-
-`# whoami: support specialist by day, breaking things (responsibly) by night`
-
-</div>
+#### ⚡ "Technology lives when it's trusted." ⚡
