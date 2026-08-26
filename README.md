@@ -1,3 +1,13 @@
+<div align="center">
+
+![Kyle.exe banner](./banner.svg)
+
+[![Typing SVG](https://readme-typing-svg.demolab.com/?font=Fira+Code&weight=600&size=22&duration=3200&pause=900&color=2DE2C5&center=true&vCenter=true&width=650&height=45&lines=IT+Support+Specialist+to+Penetration+Tester;Building+Selene+OS+-+AI-driven+pentest+automation;Security%2B+%7C+eJPT+%7C+Bug+Bounty+Hunter;Cape+Town%2C+South+Africa)](https://github.com/kyletawa)
+
+</div>
+
+---
+
 # 👋 I'm Tawanda Chihata — aka Kyle.exe
 
 ### 🛡️ Offensive Security (in progress) | 🖥️ IT Support Specialist | 🧠 Building CoreSec Group
